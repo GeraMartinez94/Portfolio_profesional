@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="100%" height="100%" fill="#0f4c81" />
+  <g fill="#fff" font-family="Poppins, Arial, sans-serif">
+    <text x="60" y="160" font-size="56" font-weight="700">MLOps</text>
+    <text x="60" y="240" font-size="40">MLflow / Pipelines</text>
+    <rect x="60" y="280" width="360" height="220" rx="20" fill="#fff" opacity="0.06" />
+  </g>
+</svg>

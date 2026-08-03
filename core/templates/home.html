@@ -1,0 +1,1166 @@
+{% load static %}
+{% load github_extras %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRYCJXRB1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1FRYCJXRB1');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio de Gerardo Martínez - Data Engineer SSR & Cloud Developer. Especializado en Big Data, Airflow, Spark y arquitectura cloud.">
+    <meta name="keywords" content="Data Engineer, Python, Django, Cloud, AWS, GCP, Spark, Airflow, Big Data">
+    <title>Gerardo Martínez - Data Engineer SSR & Cloud Developer</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* ==================================== */
+        /* === ESTILOS DEL CHATBOT (CRÍTICOS Y UNIFICADOS) - DARK/LIGHT MODE === */
+        /* ==================================== */
+        :root {
+            --primary-color: #6366f1;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --secondary-color: #16181d;
+            --user-bubble-bg: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
+            --bot-bubble-bg: #262a31;
+            --text-color: #F5F5F7;
+            --border-color: #33373f;
+            --input-bg: #1f2228;
+            --header-bg: #16181d;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+        
+        .chat-widget-container.light-mode {
+            --secondary-color: #f7f7fa;
+            --bot-bubble-bg: #ffffff;
+            --text-color: #1a1a1e;
+            --input-bg: #ffffff;
+            --border-color: #e5e5ea;
+            --header-bg: #ffffff;
+        }
+        
+        .chat-widget-container.light-mode .user-message {
+            background: var(--user-bubble-bg);
+            color: white;
+        }
+
+        /* Botón flotante — con gradiente y glow sutil */
+        .chatbot-toggle-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 62px;
+            height: 62px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.6em;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+            z-index: 1000;
+            transition: transform 0.3s, box-shadow 0.3s, opacity 1s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .chatbot-toggle-button.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .chatbot-toggle-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.55);
+        }
+
+        /* Contenedor del Chatbot */
+        .chat-widget-container {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            left: auto;
+            width: 380px;
+            height: 560px;
+            background: var(--secondary-color);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border-color);
+            z-index: 1001;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: scale(0.92) translateY(10px);
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.2, 0.6, 0.3, 1), transform 0.35s cubic-bezier(0.2, 0.6, 0.3, 1);
+        }
+        
+        .chat-widget-container.open {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Encabezado del Chat */
+        .chat-header {
+            background: var(--header-bg);
+            color: var(--text-color);
+            padding: 14px 16px;
+            font-size: 1.05em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .chat-header .robot-icon {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-header .robot-icon .avatar-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.95em;
+            flex-shrink: 0;
+        }
+
+        /* Switch de tema */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        
+        .theme-switch {
+            display: inline-block;
+            height: 20px;
+            position: relative;
+            width: 40px;
+        }
+        
+        .theme-switch input {
+            display: none;
+        }
+        
+        .slider {
+            background-color: #adb5bd;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 20px;
+        }
+        
+        .slider:before {
+            background-color: white;
+            bottom: 3px;
+            content: "";
+            height: 14px;
+            left: 3px;
+            position: absolute;
+            transition: .4s;
+            width: 14px;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: var(--primary-gradient);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        /* Cuerpo del Chat */
+        .chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .chat-message {
+            margin: 6px 0;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 82%;
+            font-size: 0.93em;
+            line-height: 1.55;
+            transition: all 0.2s ease-in-out;
+            color: var(--text-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            animation: messageIn 0.25s ease-out;
+        }
+        
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-message {
+            background: var(--user-bubble-bg);
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 6px;
+        }
+        
+        .bot-message {
+            background-color: var(--bot-bubble-bg);
+            color: var(--text-color);
+            align-self: flex-start;
+            margin-right: auto;
+            border-bottom-left-radius: 6px;
+        }
+
+        .bot-message ul {
+            padding-left: 20px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .bot-message li {
+            margin-bottom: 4px;
+            list-style-type: disc;
+        }
+
+        /* Indicador de "escribiendo" */
+        .loading-spinner-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .typing-label {
+            font-size: 0.82em;
+            color: var(--text-color);
+            opacity: 0.65;
+            margin-right: 2px;
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            margin: 0 2px;
+            width: 8px;
+            height: 8px;
+            background-color: #adb5bd;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: bounce infinite ease-in-out;
+        }
+        
+        .typing-indicator:nth-child(2) { animation-delay: -0.32s; }
+        .typing-indicator:nth-child(3) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+        /* Sugerencias de chat */
+        .chat-suggestions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .suggestion-button {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .suggestion-button:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Footer del Chat */
+        .chat-footer {
+            display: flex;
+            border-top: 1px solid var(--border-color);
+            padding: 10px;
+            background-color: var(--secondary-color);
+        }
+        
+        .clear-chat-button {
+            background: #495057;
+            color: white;
+            border: none;
+            padding: 0 12px;
+            margin-right: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1em;
+            border-radius: 6px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .clear-chat-button:hover {
+            background: #6c757d;
+        }
+        
+        .chat-footer input {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 12px 16px;
+            font-size: 0.9em;
+            outline: none;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .chat-footer input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+        }
+        
+        .chat-footer button:last-child {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+            height: 42px;
+            border-radius: 24px;
+            font-weight: 600;
+        }
+        
+        .chat-footer button:last-child:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        .chat-footer button:last-child:disabled {
+            background: #45454f;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .chat-footer input::placeholder {
+            color: #adb5bd;
+            opacity: 1;
+        }
+
+        /* Experiencia, educación, contacto, proyectos, casos de estudio y
+           gráfico de lenguajes se estilizan en style.css para mantener un
+           único sistema de diseño. Aquí solo queda lo específico del chat. */
+
+        @media (max-width: 768px) {
+            .chatbot-toggle-button {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .chat-widget-container {
+                width: 95%;
+                height: 85vh;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%) scale(0.9);
+                bottom: 80px;
+            }
+
+            .chat-widget-container.open {
+                transform: translateX(-50%) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    
+    <div class="message-container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header" id="site-header">
+        <div class="container">
+            <a href="#inicio" class="site-branding">
+                <span class="site-brand-mark">✦</span>
+                <div>
+                    <h1 class="site-title">Portafolio Profesional</h1>
+                    <p class="site-tagline">Data Engineer SSR • Cloud Developer • Python</p>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#experiencia">Experiencia</a>
+                <a href="#educacion">Educación</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#portafolio">Proyectos</a>
+                <a href="#casos-estudio">Casos</a>
+                <a href="#contacto" class="nav-cta">Contacto</a>
+            </nav>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <div class="container">
+            <nav class="mobile-nav" id="mobile-nav">
+                <a href="#inicio">Inicio</a>
+                <a href="#experiencia">Experiencia</a>
+                <a href="#educacion">Educación</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#portafolio">Proyectos</a>
+                <a href="#casos-estudio">Casos de Estudio</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="inicio">
+        <div class="container" data-aos="fade-up" data-aos-duration="1200">
+            <div class="hero-content">
+                <span class="hero-eyebrow" data-aos="fade-up"><span class="dot"></span> Disponible para nuevos proyectos</span>
+                <h1 data-aos="fade-up">Gerardo <span class="accent-word">Martínez</span></h1>
+                <span class="hero-kicker">PYTHON • DATA ENGINEERING • CLOUD ARCHITECTURE • AIRFLOW • SPARK</span>
+                <p class="hero-description">
+                    Data Engineer SSR especializado en diseño de pipelines escalables, procesamiento masivo de datos y arquitectura cloud en AWS y GCP. Con experiencia en Airflow, Spark, BigData e IA.
+                </p>
+                <div class="hero-actions">
+                    <a href="#experiencia" class="btn btn-primary" data-aos="zoom-in" data-aos-delay="300">Ver Experiencia</a>
+                    <a href="#contacto" class="btn btn-secondary" data-aos="zoom-in" data-aos-delay="400">Contáctame</a>
+                </div>
+                <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
+                    <div>
+                        <div class="hero-stat-value">4+</div>
+                        <div class="hero-stat-label">Años de experiencia</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-value">50GB+</div>
+                        <div class="hero-stat-label">Datos diarios procesados</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-value">99.9%</div>
+                        <div class="hero-stat-label">Uptime en producción</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE EXPERIENCIA LABORAL -->
+    <section class="experience-section" id="experiencia">
+        <div class="container">
+            <h2 class="text-center title-accent-line" data-aos="fade-up">Experiencia Laboral</h2>
+            <p class="subtitle text-center" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 50px;">
+                4+ años de experiencia en desarrollo backend, data engineering y arquitectura cloud
+            </p>
+            
+            <div class="experience-timeline">
+                <!-- EXPERIENCIA 1: COREBI -->
+                <div class="experience-item" data-aos="fade-up">
+                    <div class="experience-dot"></div>
+                    <div class="experience-content">
+                        <div class="experience-title">Big Data Engineer</div>
+                        <div class="experience-company">COREBI</div>
+                        <div class="experience-period">2024 - 2025 (Presente)</div>
+                        <div class="experience-desc">
+                            <p>Diseñe e implementé pipelines ETL escalables en entornos cloud utilizando Apache Airflow y Spark para procesamiento masivo de datos.</p>
+                            <ul>
+                                <li>Procesamiento de 50GB+ de datos diarios con 99.9% de uptime</li>
+                                <li>Optimización de flujos reduciendo latencia en 45% mediante paralelización con PySpark SQL</li>
+                                <li>Automatización de 12 workflows críticos, liberando 60 horas/mes de trabajo manual</li>
+                                <li>Tech Stack: Python • Airflow • PySpark • Snowflake • AWS (S3, EC2, RDS)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERIENCIA 2: AGNOSTIC IT -->
+                <div class="experience-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="experience-dot"></div>
+                    <div class="experience-content">
+                        <div class="experience-title">Developer Mobile & Data Engineer</div>
+                        <div class="experience-company">AGNOSTIC IT</div>
+                        <div class="experience-period">2022 - 2024</div>
+                        <div class="experience-desc">
+                            <p>Desarrollé aplicaciones backend con Python y desarrollé soluciones de Machine Learning en producción con monitoreo continuo.</p>
+                            <ul>
+                                <li>Backend para apps móviles en Python (Django, FastAPI)</li>
+                                <li>Integración de 5+ modelos ML en producción, reduciendo latencia de 2s a 200ms</li>
+                                <li>Dashboards en tiempo real para monitoreo de KPIs</li>
+                                <li>Tech Stack: Python • Django • FastAPI • TensorFlow • PostgreSQL • Docker</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERIENCIA 3: CABLE NORTE -->
+                <div class="experience-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="experience-dot"></div>
+                    <div class="experience-content">
+                        <div class="experience-title">Network Administrator & Developer Mobile</div>
+                        <div class="experience-company">CABLE NORTE S.A.</div>
+                        <div class="experience-period">2019 - 2021</div>
+                        <div class="experience-desc">
+                            <p>Administración de infraestructura de red y desarrollo de aplicaciones móviles para optimización de procesos internos.</p>
+                            <ul>
+                                <li>Automatización de 30+ procesos manuales con Python, reduciendo 20 horas/semana</li>
+                                <li>Administración de servidores Linux y configuración de redes empresariales</li>
+                                <li>Desarrollo de aplicaciones móviles para mobile-first</li>
+                                <li>Tech Stack: Python • React Native • Linux • Networking</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE EDUCACIÓN -->
+    <section class="education-section" id="educacion">
+        <div class="container">
+            <h2 class="text-center title-accent-line" data-aos="fade-up">Educación</h2>
+            <p class="subtitle text-center" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 50px;">
+                Formación académica y profesional continua
+            </p>
+            
+            <div class="education-grid">
+                <!-- EDUCACIÓN 1: Licenciatura -->
+                <div class="education-card" data-aos="fade-up">
+                    <div class="education-degree">Licenciatura en Sistemas</div>
+                    <div class="education-institution">UNAM - Facultad de Ciencias Exactas</div>
+                    <div class="education-status">EN CURSO</div>
+                    <div class="education-desc">
+                        Analista de Sistemas con especialización en tecnologías cloud, data engineering y desarrollo de aplicaciones escalables. Iniciado en 2015.
+                    </div>
+                </div>
+
+                <!-- EDUCACIÓN 2: Bachiller -->
+                <div class="education-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="education-degree">Bachiller en Administración de Empresas</div>
+                    <div class="education-institution">Instituto Mariano Moreno</div>
+                    <div class="education-status">COMPLETADO</div>
+                    <div class="education-desc">
+                        Formación integral en administración empresarial que complementa mi base técnica, proporcionando perspectiva en gestión de proyectos y liderazgo.
+                    </div>
+                </div>
+
+                <!-- EDUCACIÓN 3: Certificaciones -->
+                <div class="education-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="education-degree">Certificaciones Profesionales</div>
+                    <div class="education-institution">Plataformas Online</div>
+                    <div class="education-status">VIGENTES</div>
+                    <div class="education-desc">
+                        • Apache Airflow Fundamentals<br>
+                        • Google Cloud Platform - Data Engineering<br>
+                        • AWS Solutions Architecture<br>
+                        • Advanced Python Programming
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE HABILIDADES TÉCNICAS -->
+    <section class="skills-list-section" id="habilidades">
+        <div class="container">
+            <h2 class="text-center title-accent-line" data-aos="fade-up">Habilidades Técnicas</h2>
+            <div class="skills-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="skills-category">
+                    <h3><i class="fas fa-code"></i> Lenguajes y Frameworks</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <strong>Python</strong> - Expert</li>
+                        <li><i class="fas fa-check"></i> Django, FastAPI - Advanced</li>
+                        <li><i class="fas fa-check"></i> React, React Native - Intermediate</li>
+                        <li><i class="fas fa-check"></i> SQL, Laravel - Intermediate</li>
+                    </ul>
+                </div>
+                <div class="skills-category">
+                    <h3><i class="fas fa-cloud"></i> Cloud & Big Data</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <strong>Apache Airflow</strong> - Expert</li>
+                        <li><i class="fas fa-check"></i> PySpark, Databricks - Advanced</li>
+                        <li><i class="fas fa-check"></i> AWS (S3, RDS, EC2, Lambda) - Advanced</li>
+                        <li><i class="fas fa-check"></i> GCP (BigQuery, Dataflow) - Intermediate</li>
+                    </ul>
+                </div>
+                <div class="skills-category">
+                    <h3><i class="fas fa-database"></i> DevOps & Infraestructura</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Docker, Kubernetes - Advanced</li>
+                        <li><i class="fas fa-check"></i> Terraform, CI/CD - Intermediate</li>
+                        <li><i class="fas fa-check"></i> Linux, Bash - Advanced</li>
+                        <li><i class="fas fa-check"></i> Snowflake, PostgreSQL - Advanced</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GITHUB ANALYSIS SECTION -->
+    <section class="github-analysis-section">
+        <div class="container text-center">
+            <h2 data-aos="fade-down" class="title-accent-line">Tecnologías Principales en GitHub</h2>
+            <p class="subtitle" data-aos="fade-down" data-aos-delay="200">
+                Análisis dinámico del stack tecnológico de mis proyectos públicos.
+            </p>
+            <div class="analysis-flex-container">
+                <div class="pie-chart-wrapper" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="pie-chart" style="background: conic-gradient({{ gradient_string }});"></div>
+                    <div class="legend" data-aos="fade-left">
+                        {% for lang in languages %}
+                            <div class="legend-item">
+                                <span style="background-color: {{ lang.color }};"></span>
+                                {{ lang.language }} {{ lang.percent }}%
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <p class="legend-note">Datos obtenidos directamente de la API de GitHub.</p>
+        </div>
+    </section>
+
+    <!-- PROYECTOS DESTACADOS -->
+    <section class="case-studies-section" id="portafolio">
+        <div class="container">
+            <h2 class="text-center title-accent-line" data-aos="fade-up">Proyectos Destacados</h2>
+            <p class="subtitle text-center" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 50px;">
+                Repositorios públicos demostrando expertise en data engineering, MLOps y arquitectura cloud
+            </p>
+            <div class="case-study-grid">
+                {% for repo in featured_repos %}
+                    <a href="{{ repo.html_url }}" target="_blank" class="project-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 | stringformat:'i' }}00">
+                        <div class="card-media" style="--lang-color: {{ repo.language | get_language_color_filter }};"></div>
+                        <div class="card-content">
+                            <h3 class="project-title">{{ repo.name }}</h3>
+                            <p class="project-description">
+                                {% if repo.description %}
+                                    {{ repo.description }}
+                                {% else %}
+                                    No hay descripción disponible.
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <small>Última actualización: {% if repo.updated_at %}{{ repo.updated_at|date:"d M Y" }}{% else %}N/A{% endif %}</small>
+                            <div class="project-actions">
+                                <span class="view-repo">Ver en GitHub</span>
+                            </div>
+                        </div>
+                    </a>
+                {% empty %}
+                    <div style="grid-column: 1 / -1; text-align: center;">
+                        <p>No se pudieron cargar los proyectos destacados de GitHub.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CASOS DE ESTUDIO -->
+    <section class="case-studies-section" id="casos-estudio">
+        <div class="container">
+            <h2 class="text-center title-accent-line" data-aos="fade-up">Casos de Estudio</h2>
+            <p class="subtitle text-center" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 50px;">
+                Detalles de proyectos clave con impacto cuantificable
+            </p>
+
+            <!-- CASO 1: COREBI -->
+            <div class="case-study-card" data-aos="fade-up">
+                <div class="case-study-header">
+                    <div class="case-study-title">Pipeline ETL para Sector Energético</div>
+                    <div class="case-study-subtitle">COREBI • Big Data Engineering</div>
+                </div>
+                <div class="case-study-body">
+                    <div class="case-study-section-title">🎯 Desafío</div>
+                    <div class="case-study-content">
+                        La empresa requería procesar 50GB+ de datos diarios provenientes de múltiples fuentes (APIs, bases de datos, archivos) con baja latencia y alta disponibilidad. Los procesos manuales consumían 12 horas diarias.
+                    </div>
+
+                    <div class="case-study-section-title">💡 Solución</div>
+                    <div class="case-study-content">
+                        Diseñé una arquitectura ETL completa utilizando Apache Airflow para orquestación, PySpark para procesamiento paralelo y Snowflake como data warehouse. Implementé monitoreo continuo con alertas automáticas.
+                    </div>
+
+                    <div class="case-study-section-title">📊 Resultados</div>
+                    <div class="case-study-metrics">
+                        <div class="metric">
+                            <div class="metric-value">50GB+</div>
+                            <div class="metric-label">Datos diarios procesados</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">99.9%</div>
+                            <div class="metric-label">Uptime garantizado</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">45%</div>
+                            <div class="metric-label">Reducción latencia</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">60h/mes</div>
+                            <div class="metric-label">Trabajo automatizado</div>
+                        </div>
+                    </div>
+
+                    <div class="case-study-section-title">🛠️ Stack Técnico</div>
+                    <div class="case-study-content">
+                        Python • Apache Airflow • PySpark • Snowflake • AWS (S3, EC2, RDS) • Docker • PostgreSQL
+                    </div>
+                </div>
+            </div>
+
+            <!-- CASO 2: AGNOSTIC IT -->
+            <div class="case-study-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="case-study-header">
+                    <div class="case-study-title">Integración de ML en Producción</div>
+                    <div class="case-study-subtitle">AGNOSTIC IT • ML Engineering</div>
+                </div>
+                <div class="case-study-body">
+                    <div class="case-study-section-title">🎯 Desafío</div>
+                    <div class="case-study-content">
+                        Integrar múltiples modelos de Machine Learning entrenados en 5 aplicaciones móviles sin afectar la experiencia del usuario. Los tiempos de respuesta eran críticos (< 500ms).
+                    </div>
+
+                    <div class="case-study-section-title">💡 Solución</div>
+                    <div class="case-study-content">
+                        Implementé un backend escalable con FastAPI para servir los modelos, con cacheo inteligente, cuantización de modelos y optimización con TensorFlow Lite. Configuré monitoreo con MLflow.
+                    </div>
+
+                    <div class="case-study-section-title">📊 Resultados</div>
+                    <div class="case-study-metrics">
+                        <div class="metric">
+                            <div class="metric-value">5+</div>
+                            <div class="metric-label">Modelos en producción</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">200ms</div>
+                            <div class="metric-label">Latencia promedio</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">90%↓</div>
+                            <div class="metric-label">Reducción errores</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">4.8★</div>
+                            <div class="metric-label">App Store rating</div>
+                        </div>
+                    </div>
+
+                    <div class="case-study-section-title">🛠️ Stack Técnico</div>
+                    <div class="case-study-content">
+                        Python • FastAPI • Django • TensorFlow • MLflow • PostgreSQL • Docker • React Native
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE CONTACTO -->
+    <section class="contact-section" id="contacto">
+        <div class="container">
+            <h2 class="text-center title-accent-line" data-aos="fade-up">Ponte en Contacto</h2>
+            <p class="subtitle text-center" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 50px;">
+                ¿Tienes una oportunidad interesante? Me encantaría escucharte
+            </p>
+
+            <div class="contact-content">
+                <div data-aos="fade-right">
+                    <div class="contact-info-group">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Teléfono</h3>
+                            <p>+54 9 3764 632827</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-group">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>geramartinez450@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-group">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Ubicación</h3>
+                            <p>Posadas, Misiones, Argentina</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-group">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>GitHub</h3>
+                            <p><a href="https://github.com/GeraMartinez94" target="_blank" style="color: var(--primary-color); text-decoration: none;">github.com/GeraMartinez94</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-group">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Portafolio</h3>
+                            <p><a href="https://geramar94.pythonanywhere.com" target="_blank" style="color: var(--primary-color); text-decoration: none;">geramar94.pythonanywhere.com</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form" data-aos="fade-left">
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Tu Nombre *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Tu Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Asunto *</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Tu Mensaje *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-button">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Gerardo Martínez - Data Engineer SSR. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- CHATBOT TOGGLE BUTTON -->
+    <button class="chatbot-toggle-button" id="chatbot-toggle" aria-label="Abrir Chatbot">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <!-- CHAT WIDGET -->
+    <div class="chat-widget-container" id="chat-widget">
+        <div class="chat-header">
+            <div class="robot-icon">
+                <div class="avatar-circle"><i class="fas fa-robot"></i></div>
+                DevIA
+            </div>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" checked />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </div>
+
+        <div class="chat-body" id="chat-body">
+            <div class="chat-message bot-message" id="initial-message">
+                ¡Hola! 👋 Soy <strong>DevIA</strong>, el asistente virtual de Gerardo Martínez.
+                <br><br>
+                Puedo ayudarte con:
+                <ul>
+                    <li><strong>Experiencia laboral</strong> - Proyectos en COREBI, AGNOSTIC IT y más</li>
+                    <li><strong>Habilidades técnicas</strong> - Stack: Python, Airflow, Spark, AWS, GCP</li>
+                    <li><strong>Proyectos destacados</strong> - Casos de estudio con resultados medibles</li>
+                    <li><strong>Contacto</strong> - Formas de conectar</li>
+                </ul>
+                ¿En qué puedo ayudarte hoy?
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <button id="clear-chat-button" class="clear-chat-button" title="Reiniciar chat">
+                <i class="fas fa-redo"></i>
+            </button>
+            <input type="text" id="user-input" placeholder="Escribe tu pregunta..." onkeydown="if(event.key === 'Enter') sendMessage()">
+            <button id="send-button" onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicialización de AOS
+        AOS.init({ duration: 800, once: true });
+
+        // Menú móvil
+        const navToggle = document.getElementById('nav-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (navToggle && mobileNav) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                mobileNav.classList.toggle('open');
+            });
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    mobileNav.classList.remove('open');
+                });
+            });
+        }
+
+        // Resaltar link activo según la sección visible
+        const sections = document.querySelectorAll('section[id]');
+        const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+        const highlightNav = () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 140;
+                if (window.scrollY >= top) current = section.getAttribute('id');
+            });
+            navAnchors.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        };
+        window.addEventListener('scroll', highlightNav);
+        highlightNav();
+
+        // Elementos del Chatbot
+        const chatWidget = document.getElementById('chat-widget');
+        const toggleButton = document.getElementById('chatbot-toggle');
+        const chatBody = document.getElementById("chat-body");
+        const initialMessage = document.getElementById("initial-message").cloneNode(true);
+        const clearChatButton = document.getElementById("clear-chat-button");
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const themeCheckbox = document.getElementById('checkbox');
+
+        // Función de escritura
+        function typeMessage(element, text, delay = 25) {
+            return new Promise(resolve => {
+                let i = 0;
+                function typing() {
+                    if (i < text.length) {
+                        const char = text.charAt(i);
+                        if (char === '\n') {
+                            element.innerHTML += '<br>';
+                            chatBody.scrollTop = chatBody.scrollHeight;
+                            i++;
+                            setTimeout(typing, delay + 150);
+                        } else {
+                            element.innerHTML += char;
+                            chatBody.scrollTop = chatBody.scrollHeight;
+                            i++;
+                            setTimeout(typing, delay);
+                        }
+                    } else {
+                        resolve();
+                    }
+                }
+                typing();
+            });
+        }
+
+        // Función de reinicio de chat
+        function clearChat() {
+            while (chatBody.firstChild) chatBody.removeChild(chatBody.firstChild);
+            chatBody.appendChild(initialMessage.cloneNode(true));
+            chatBody.scrollTop = chatBody.scrollHeight;
+            userInput.disabled = false;
+            sendButton.disabled = false;
+            userInput.focus();
+        }
+
+        // Función para crear el indicador de "escribiendo"
+        function createTypingIndicator() {
+            const botLoadingMsg = document.createElement("div");
+            botLoadingMsg.classList.add("chat-message", "bot-message", "loading-indicator");
+            botLoadingMsg.innerHTML = `
+                <div class="loading-spinner-container">
+                    <span class="typing-label">DevIA está escribiendo</span>
+                    <span class="typing-indicator"></span>
+                    <span class="typing-indicator"></span>
+                    <span class="typing-indicator"></span>
+                </div>
+            `;
+            chatBody.appendChild(botLoadingMsg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return botLoadingMsg;
+        }
+
+        // Función para enviar mensaje
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Mostrar mensaje del usuario
+            const userMsg = document.createElement("div");
+            userMsg.classList.add("chat-message", "user-message");
+            userMsg.textContent = message;
+            chatBody.appendChild(userMsg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            userInput.value = "";
+
+            // Desactivar input
+            userInput.disabled = true;
+            sendButton.disabled = true;
+            const botLoadingMsg = createTypingIndicator();
+
+            let reply = "";
+            try {
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                const response = await fetch("/api/chat/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-CSRFToken": csrfToken
+                    },
+                    body: "message=" + encodeURIComponent(message)
+                });
+                const data = await response.json();
+                let rawReply = response.ok ? data.reply : data.error || "Error desconocido al procesar la respuesta.";
+                
+                // Limpieza de tags HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = rawReply;
+                let cleanedText = tempDiv.textContent.trim();
+
+                if (cleanedText.length < 5) {
+                    reply = "¡Hola! Puedo ayudarte con información sobre mi experiencia en Data Engineering, proyectos con Airflow y Spark, arquitectura cloud, o cualquier pregunta sobre mi perfil técnico. ¿Qué te gustaría saber?";
+                } else {
+                    reply = cleanedText.replace(/\. /g, '.\n').replace(/! /g, '!\n').replace(/\? /g, '?\n');
+                }
+            } catch (error) {
+                console.error("Error al enviar mensaje:", error);
+                reply = "Lo siento, hubo un problema de conexión. Por favor, intenta de nuevo.";
+            } finally {
+                // Remover indicador de typing
+                if (chatBody.contains(botLoadingMsg)) chatBody.removeChild(botLoadingMsg);
+
+                // Mostrar respuesta del bot
+                const botMsg = document.createElement("div");
+                botMsg.classList.add("chat-message", "bot-message");
+                botMsg.innerHTML = "";
+                chatBody.appendChild(botMsg);
+                await typeMessage(botMsg, reply);
+
+                // Reactivar input
+                userInput.disabled = false;
+                sendButton.disabled = false;
+                userInput.focus();
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+        }
+
+        // Toggle de tema
+        function toggleTheme() {
+            chatWidget.classList.toggle('light-mode');
+            const isLight = chatWidget.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        }
+
+        // Cargar preferencia al iniciar
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                themeCheckbox.checked = false;
+                chatWidget.classList.add('light-mode');
+            } else {
+                themeCheckbox.checked = true;
+                chatWidget.classList.remove('light-mode');
+            }
+            setTimeout(() => toggleButton.classList.add('visible'), 1000);
+        });
+
+        themeCheckbox.addEventListener('change', toggleTheme);
+
+        // Toggle del chatbot
+        toggleButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            chatWidget.classList.toggle('open');
+            const icon = toggleButton.querySelector('i');
+            if (chatWidget.classList.contains('open')) {
+                icon.classList.replace('fa-comment-dots', 'fa-times');
+                userInput.focus();
+            } else {
+                icon.classList.replace('fa-times', 'fa-comment-dots');
+            }
+        });
+
+        // Cerrar chat al hacer clic fuera
+        document.addEventListener('click', (event) => {
+            if (chatWidget.classList.contains('open') &&
+                !chatWidget.contains(event.target) &&
+                !toggleButton.contains(event.target)) {
+                chatWidget.classList.remove('open');
+                toggleButton.querySelector('i').classList.replace('fa-times', 'fa-comment-dots');
+            }
+        });
+
+        // Botón de limpiar chat
+        clearChatButton.addEventListener('click', (event) => { event.preventDefault(); clearChat(); });
+
+        // Manejo del formulario de contacto
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Aquí puedes enviar los datos a tu backend o a un servicio de email
+            console.log({ name, email, subject, message });
+            
+            // Mostrar mensaje de éxito
+            alert('¡Gracias por tu mensaje! Me contactaré pronto.');
+            document.getElementById('contact-form').reset();
+        }
+    </script>
+</body>
+</html>

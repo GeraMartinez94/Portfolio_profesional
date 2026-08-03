@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="100%" height="100%" fill="#2b8e32" />
+  <g fill="#fff" font-family="Poppins, Arial, sans-serif">
+    <text x="60" y="160" font-size="60" font-weight="700">Scraping</text>
+    <text x="60" y="240" font-size="44">Herramientas y Scripts</text>
+    <rect x="60" y="300" width="340" height="160" rx="14" fill="#fff" opacity="0.06" />
+  </g>
+</svg>

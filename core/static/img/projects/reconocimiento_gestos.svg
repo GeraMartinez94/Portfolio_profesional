@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="100%" height="100%" fill="#3572A5" />
+  <g fill="#fff" font-family="Poppins, Arial, sans-serif">
+    <text x="60" y="160" font-size="64" font-weight="700">Reconocimiento</text>
+    <text x="60" y="240" font-size="48">de Gestos</text>
+    <rect x="60" y="280" width="220" height="220" rx="20" fill="#fff" opacity="0.08" />
+    <circle cx="170" cy="390" r="48" fill="#fff" opacity="0.12" />
+  </g>
+</svg>

@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Agenda una consulta gratuita con Gerardo Martínez - Data Engineer SSR & Cloud Developer.">
+    <title>Portafolio Profesional - Contacto</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+        <div class="container">
+            <a href="{% url 'home' %}" class="site-branding">
+                <span class="site-brand-mark">✦</span>
+                <div>
+                    <h1 class="site-title">Portafolio Profesional</h1>
+                    <p class="site-tagline">Data Engineer SSR • Cloud Developer • Python</p>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="{% url 'home' %}"><i class="fas fa-arrow-left me-2"></i> Volver al Inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="agendamiento" class="contact-section page-section-offset text-center">
+      <div class="container py-5">
+
+        <h2 class="title-accent-line mb-4" data-aos="fade-down">Agenda una Consulta Gratuita</h2>
+
+        <p class="lead mb-5" data-aos="fade-up" data-aos-delay="100">
+            ¿Tienes un proyecto en mente o necesitas consultoría? Agenda un espacio de 15 minutos sin costo.
+            Estamos aquí para transformar tus datos en soluciones inteligentes.
+        </p>
+
+        <div class="contact-action-box" data-aos="zoom-in" data-aos-delay="200">
+
+            <a
+                href="https://calendly.com/geramartinez450/nueva-reunion"
+                target="_blank"
+                class="btn btn-primary btn-cta-big mb-4"
+                title="Agenda tu reunión en Calendly"
+            >
+                Agendar Consulta de 15 Minutos
+            </a>
+
+            <p class="contact-or-separator mb-4" data-aos="fade-up" data-aos-delay="300">
+                O si prefieres, contáctanos directamente:
+            </p>
+
+            <div class="contact-links" data-aos="fade-up" data-aos-delay="400">
+                <p><i class="fas fa-envelope icon-mail"></i> geramartinez450@gmail.com</p>
+
+                <a
+                    href="https://www.linkedin.com/company/analytics-devs-consulting/"
+                    target="_blank"
+                    class="contact-link"
+                    title="Conecta con nosotros en LinkedIn"
+                >
+                    <i class="fab fa-linkedin icon-linkedin"></i> Analytics Devs Consulting
+                </a>
+            </div>
+        </div>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-5" data-aos="fade-up" data-aos-delay="500">
+            <i class="fas fa-arrow-left me-2"></i> Volver al Inicio
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 AnalyticsDevs. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+    </script>
+  </body>
+</html>

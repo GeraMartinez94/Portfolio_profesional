@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Agenda tu charla de 15 minutos - Portafolio Profesional de Gerardo Martínez.">
+    <title>Agenda tu Charla de 15 Minutos - Portafolio Profesional</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+        <div class="container">
+            <a href="{% url 'home' %}" class="site-branding">
+                <span class="site-brand-mark">✦</span>
+                <div>
+                    <h1 class="site-title">Portafolio Profesional</h1>
+                    <p class="site-tagline">Data Engineer SSR • Cloud Developer • Python</p>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="{% url 'home' %}"><i class="fas fa-arrow-left me-2"></i> Volver al Inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="agendamiento" class="contact-section page-section-offset py-5">
+      <div class="container text-center py-5">
+
+        <h2 class="title-accent-line mb-4">Agenda tu Charla de 15 Minutos</h2>
+
+        <p class="lead mb-5">
+            Agenda una reunión con nosotros para asegurar tu cupo en el evento o resolver cualquier duda.
+        </p>
+
+        <div class="contact-action-box d-flex justify-content-center flex-column align-items-center mb-5">
+
+            <a
+                href="https://calendly.com/geramartinez450/nueva-reunion"
+                target="_blank"
+                class="btn btn-primary btn-cta-big mb-3"
+            >
+                Agendar Charla de 15 Minutos
+            </a>
+
+            <p class="contact-or-separator mt-3">
+                O contáctanos por otros medios:
+            </p>
+
+            <a
+                href="mailto:tu.correo.contacto@ejemplo.com"
+                class="contact-link mb-2 d-block"
+            >
+                <i class="fas fa-envelope icon-mail me-2"></i> tu.correo.contacto@ejemplo.com
+            </a>
+
+            <a
+                href="[TU ENLACE DE LINKEDIN AQUÍ]"
+                target="_blank"
+                class="text-secondary d-block"
+            >
+                <i class="fab fa-linkedin icon-linkedin me-2"></i> Contactar por LinkedIn
+            </a>
+        </div>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-5">Volver al Inicio</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 AnalyticsDevs. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+    </script>
+  </body>
+</html>

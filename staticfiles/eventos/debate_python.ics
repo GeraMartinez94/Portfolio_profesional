@@ -1,0 +1,31 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//timeanddate.com//Event Time Announcer
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20251013T223000Z
+DTEND:20251013T233000Z
+TRANSP:TRANSPARENT
+SUMMARY:Debate: El Futuro de Python en el futuro tecnológico
+DESCRIPTION:Debate: El Futuro de Python en el futuro tecnológico\nTime wh
+ en the event takes place: \n\nUTC-3: Monday, 13 October 2025, 19:30\nPosa
+ das: Monday, 13 October 2025, 19:30\n\nTime in some other locations:\n\nS
+ ydney: Tuesday, 14 October 2025, 09:30\nTokyo: Tuesday, 14 October 2025, 
+ 07:30\nBeijing: Tuesday, 14 October 2025, 06:30\nMoscow: Tuesday, 14 Octo
+ ber 2025, 01:30\nNew Delhi: Tuesday, 14 October 2025, 04:00\nParis: Tuesd
+ ay, 14 October 2025, 00:30\nLondon: Monday, 13 October 2025, 23:30\nBueno
+ s Aires: Monday, 13 October 2025, 19:30\nNew York: Monday, 13 October 202
+ 5, 18:30\nLos Angeles: Monday, 13 October 2025, 15:30\n\n\nList generated
+  using timeanddate.com's Event Time Announcer\nhttps://www.timeanddate.co
+ m/worldclock/fixedtime.html?iso=20251013T1930&p1=3917&msg=Debate%3a%20El%
+ 20Futuro%20de%20Python%20en%20el%20futuro%20tecnol%c3%b3gico\n
+LOCATION:UTC-3
+URL;VALUE=URI:https://www.timeanddate.com/worldclock/fixedtime.html?iso=20
+ 251013T1930&p1=3917&msg=Debate%3a%20El%20Futuro%20de%20Python%20en%20el%2
+ 0futuro%20tecnol%c3%b3gico
+UID:https://www.timeanddate.com/worldclock/fixedtime.html?iso=20251013T193
+ 0&p1=3917&msg=Debate%3a%20El%20Futuro%20de%20Python%20en%20el%20futuro%20
+ tecnol%c3%b3gico
+DTSTAMP:20251013T223000Z
+END:VEVENT
+END:VCALENDAR
