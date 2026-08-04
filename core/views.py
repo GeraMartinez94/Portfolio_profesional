@@ -42,6 +42,20 @@ CV_CONTENT = (
 # ----------------------------------------
 
 FEATURED_REPOS = [
+    {
+                'name': "Panel de Trading en Tiempo Real (Python + Spark + SQL + Streamlit)",
+                'description': "Pipeline de datos en tiempo real que simula un feed de transacciones bursátiles, lo procesa con **Spark Structured Streaming**, lo persiste en **SQLite** (consultable con **SQL**) y lo visualiza en un **dashboard web en vivo** hecho con **Streamlit**.",
+                'html_url': "https://github.com/GeraMartinez94/Proyecto_Python_StreamLit",
+               'language': "Python",
+                'updated_at': "2026-07-07T10:00:00Z"
+            },
+      {
+            'name': "Streaming Demo — Redpanda (Kafka) + Python",
+            'description': "Pipeline de procesamiento de eventos en tiempo real construido para aprender los fundamentos de streaming de datos: ingesta, procesamiento con ventanas deslizantes, detección de alertas, y visualización en vivo.",
+            'html_url': "https://github.com/GeraMartinez94/Proyecto_con_redpanda",
+           'language': "Python",
+            'updated_at': "2026-07-07T10:00:00Z"
+        },
      {
         'name': "Proyecto de CDP",
         'description': "Un pipeline de datos completo y ejecutable que simula una arquitectura Cloudera CDP real para el sector energético.",
