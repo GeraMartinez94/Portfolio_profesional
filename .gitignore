@@ -1,3 +1,28 @@
-".env" 
-.env 
-.env 
+# Variables de entorno y claves — NUNCA subir esto al repo
+.env
+*.env
+!.env.example
+
+# Base de datos local
+db.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Django
+staticfiles/
+media/
+
+# Logs
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

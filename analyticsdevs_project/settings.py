@@ -144,6 +144,10 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 # El correo que usará Django para autenticarse (debe ser la cuenta del servicio SMTP).
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 
+# Destino de los mensajes del formulario de contacto del sitio.
+# Si no se define explícitamente, cae en la misma cuenta usada para enviar.
+CONTACT_EMAIL_TO = os.environ.get('CONTACT_EMAIL_TO', EMAIL_HOST_USER or 'geramartinez450@gmail.com')
+
 # Solo activa el envío real si las credenciales están presentes
 if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
 
