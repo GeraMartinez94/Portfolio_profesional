@@ -50,6 +50,13 @@ CV_CONTENT = (
 
 FEATURED_REPOS = [
     {
+        'name': "Ecobici ETL Pipeline — Airflow + PySpark + Postgres",
+        'description': "Pipeline ETL end-to-end totalmente contenerizado para orquestar, transformar y validar diariamente los datos masivos de uso del sistema de bicicletas públicas de Buenos Aires.",
+        'html_url': "https://github.com/GeraMartinez94/ecobici-etl-pipeline",
+        'language': "Python",
+        'updated_at': "2026-08-18T14:30:00Z"
+    },
+    {
         'name': "dbt + Snowflake + Python (Snowpark)",
         'description': "Pipeline de transformación de datos con dbt sobre Snowflake, combinando modelos SQL tradicionales con modelos escritos en Python usando la API de Snowpark.",
         'html_url': "https://github.com/GeraMartinez94/dbt-snowflake-python",
