@@ -715,7 +715,8 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <small>Última actualización: {% if repo.updated_at %}</small>
+                        <small>Última actualización: {% if repo.updated_at %}{{ repo.updated_at|date:"d M Y" }}{% else
+                            %}N/A{% endif %}</small>
                         <div class="project-actions">
                             <span class="view-repo">Ver en GitHub</span>
                         </div>
