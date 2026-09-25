@@ -9,7 +9,7 @@ from django.views.decorators.http import require_http_methods
 from django.core.mail import EmailMessage, BadHeaderError
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-import markdown
+import markdown # type: ignore
 
 GITHUB_USERNAME = "GeraMartinez94"
 
@@ -49,7 +49,13 @@ CV_CONTENT = (
 # ----------------------------------------
 
 FEATURED_REPOS = [
-    
+      {
+        'name': "Gastro Streaming Pipeline",
+        'description': "Pipeline de datos end-to-end en streaming para un sistema gastronómico: Kafka + Python + PostgreSQL + dbt + Airflow + Metabase, orquestado con Docker Compose.",
+        'html_url': "https://github.com/GeraMartinez94/gastro-streaming-pipeline",
+        'language': "Python",
+        'updated_at': "2026-08-18"
+    },
   {
         'name': "Ecobici ETL Pipeline + Sistema RAG",
         'description': "Chat en Streamlit que responde preguntas en lenguaje natural sobre el sistema de bicicletas públicas de Buenos Aires (Ecobici)",
