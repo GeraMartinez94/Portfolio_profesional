@@ -521,13 +521,34 @@
             </p>
 
             <div class="experience-timeline">
-                <!-- EXPERIENCIA 1: COREBI -->
+                <!-- EXPERIENCIA 0: AVLA (actual) -->
                 <div class="experience-item" data-aos="fade-up">
+                    <div class="experience-dot"></div>
+                    <div class="experience-content">
+                        <div class="experience-title">Data Engineer (Semi-Senior)</div>
+                        <div class="experience-company">AVLA</div>
+                        <div class="experience-period">2025 - Presente</div>
+                        <div class="experience-desc">
+                            <p>Diseño de la arquitectura de datos y desarrollo de pipelines ELT sobre GCP, con foco en
+                                consumo analítico.</p>
+                            <ul>
+                                <li>Arquitectura Medallion (Bronze/Silver/Gold) para estructurar el repositorio de datos del equipo</li>
+                                <li>Pipelines ELT con Matillion sobre BigQuery</li>
+                                <li>Diseño de esquemas y modelos de datos en MongoDB para casos de uso analíticos</li>
+                                <li>Integración de datos entre plataformas SaaS y AWS mediante AppFlow</li>
+                                <li>Tech Stack: BigQuery • Matillion • MongoDB • AWS AppFlow • GCP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERIENCIA 1: COREBI -->
+                <div class="experience-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="experience-dot"></div>
                     <div class="experience-content">
                         <div class="experience-title">Big Data Engineer</div>
                         <div class="experience-company">COREBI</div>
-                        <div class="experience-period">2024 - 2025 (Presente)</div>
+                        <div class="experience-period">2024 - 2025</div>
                         <div class="experience-desc">
                             <p>Diseño e implementación de pipelines ETL en entornos cloud utilizando Apache Airflow y
                                 Spark para procesamiento de datos a gran escala.</p>
@@ -542,7 +563,7 @@
                 </div>
 
                 <!-- EXPERIENCIA 2: AGNOSTIC IT -->
-                <div class="experience-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="experience-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="experience-dot"></div>
                     <div class="experience-content">
                         <div class="experience-title">Developer Mobile & Data Engineer</div>
@@ -562,10 +583,10 @@
                 </div>
 
                 <!-- EXPERIENCIA 3: CABLE NORTE -->
-                <div class="experience-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="experience-item" data-aos="fade-up" data-aos-delay="300">
                     <div class="experience-dot"></div>
                     <div class="experience-content">
-                        <div class="experience-title">Network Administrator & Developer Mobile</div>
+                        <div class="experience-title">Network Administrator & Mobile Developer</div>
                         <div class="experience-company">CABLE NORTE S.A.</div>
                         <div class="experience-period">2019 - 2021</div>
                         <div class="experience-desc">
@@ -574,8 +595,8 @@
                             <ul>
                                 <li>Automatización de procesos manuales con Python</li>
                                 <li>Administración de servidores Linux y configuración de redes empresariales</li>
-                                <li>Desarrollo de aplicaciones móviles con enfoque mobile-first</li>
-                                <li>Tech Stack: Python • React Native • Linux • Networking</li>
+                                <li>Desarrollo de aplicaciones móviles con enfoque mobile-first (React Native)</li>
+                                <li>Tech Stack: Python • Linux • React Native</li>
                             </ul>
                         </div>
                     </div>
@@ -652,6 +673,7 @@
                         <li><i class="fas fa-check"></i> PySpark, Databricks - Advanced</li>
                         <li><i class="fas fa-check"></i> AWS (S3, RDS, EC2, Lambda) - Advanced</li>
                         <li><i class="fas fa-check"></i> GCP (BigQuery, Dataflow) - Intermediate</li>
+                        <li><i class="fas fa-check"></i> Matillion, dbt (ELT) - Advanced</li>
                     </ul>
                 </div>
                 <div class="skills-category">
@@ -660,7 +682,7 @@
                         <li><i class="fas fa-check"></i> Docker, Kubernetes - Advanced</li>
                         <li><i class="fas fa-check"></i> Terraform, CI/CD - Intermediate</li>
                         <li><i class="fas fa-check"></i> Linux, Bash - Advanced</li>
-                        <li><i class="fas fa-check"></i> Snowflake, PostgreSQL - Advanced</li>
+                        <li><i class="fas fa-check"></i> Snowflake, PostgreSQL, MongoDB - Advanced</li>
                     </ul>
                 </div>
             </div>
@@ -715,8 +737,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <small>Última actualización: {% if repo.updated_at %}{{ repo.updated_at|date:"d M Y" }}{% else
-                            %}N/A{% endif %}</small>
+                        <small>Última actualización: {{ repo.updated_display|default:"N/A" }}</small>
                         <div class="project-actions">
                             <span class="view-repo">Ver en GitHub</span>
                         </div>
@@ -911,7 +932,7 @@
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Gerardo Martínez - Data Engineer SSR. Todos los derechos reservados.</p>
+            <p>&copy; {% now "Y" %} Gerardo Martínez - Data Engineer SSR. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -941,8 +962,8 @@
                 <br><br>
                 Puedo ayudarte con:
                 <ul>
-                    <li><strong>Experiencia laboral</strong> - Proyectos en COREBI, AGNOSTIC IT y más</li>
-                    <li><strong>Habilidades técnicas</strong> - Stack: Python, Airflow, Spark, AWS, GCP</li>
+                    <li><strong>Experiencia laboral</strong> - Proyectos en AVLA, COREBI, AGNOSTIC IT y más</li>
+                    <li><strong>Habilidades técnicas</strong> - Stack: Python, Airflow, Spark, BigQuery, Matillion, AWS, GCP</li>
                     <li><strong>Proyectos destacados</strong> - Casos de estudio con resultados medibles</li>
                     <li><strong>Contacto</strong> - Formas de conectar</li>
                 </ul>

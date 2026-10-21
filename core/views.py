@@ -27,14 +27,27 @@ CV_CONTENT = (
     "HABILIDADES:\n"
     " - Lenguajes y Frameworks: Python, Django, Flask, FastAPI, Laravel, Angular, React, React Native.\n"
     " - Cloud & DevOps: AWS, GCP, Docker, Kubernetes, CI/CD, Terraform, Linux.\n"
-    " - Datos & ML: Snowflake, dbt, SQL, Apache Airflow, Spark/Databricks, Pandas, MLflow.\n"
+    " - Datos & ML: Snowflake, BigQuery, Matillion, dbt, SQL, Apache Airflow, Spark/Databricks, MongoDB, Pandas, MLflow.\n"
     "EXPERIENCIA:\n"
-    " - Big Data Engineer en COREBI (2024-2025): Diseño de pipelines en entornos cloud, uso de Airflow y "
-    "Spark para procesamiento de datos, optimización de flujos.\n"
-    " - Developer Mobile & Data Engineer en AGNOSTIC IT (2022-2024): Desarrollo de backend para "
-    "aplicaciones móviles en Python, integración de modelos de Machine Learning y dashboards en tiempo real.\n"
-    " - Network Administrator & Developer Mobile en CABLE NORTE S.A. (2019-2021): Automatización de "
-    "procesos con Python, administración de redes y servidores.\n"
+    " - Data Engineer (Semi-Senior) en AVLA (2025-actualidad, puesto actual): Arquitectura de datos Medallion "
+    "(Bronze/Silver/Gold) para estructurar el repositorio del equipo en capas orientadas al consumo, pipelines ELT "
+    "con Matillion sobre BigQuery, diseño de esquemas y modelos en MongoDB para casos analíticos e integración de "
+    "datos entre plataformas SaaS y AWS con AppFlow. GCP es la nube principal del equipo. "
+    "Stack: BigQuery, Matillion, MongoDB, AWS AppFlow, GCP.\n"
+    " - Big Data Engineer (Semi-Senior) en COREBI (2024-2025): Diseño e implementación de pipelines ETL cloud con "
+    "Airflow y Spark, optimización de rendimiento con paralelización en PySpark SQL y automatización de workflows "
+    "recurrentes. Proyecto Naranja X (sector financiero): ETL con IBM DataStage sobre Teradata, validaciones "
+    "basadas en reglas de negocio y generación de reportes. "
+    "Stack: Python, Airflow, PySpark, Snowflake, AWS (S3, EC2, RDS), IBM DataStage, Teradata.\n"
+    " - Mobile Developer & Data Engineer en AGNOSTIC IT (2022-2024): ETL con IBM DataStage sobre Teradata, "
+    "pipelines ELT con Matillion sobre Snowflake orquestados con Control-M, dashboards de KPIs en tiempo real "
+    "con PostgreSQL y MongoDB (optimización de consultas con particionado e índices), integración de modelos de "
+    "Machine Learning en producción y backend para apps móviles en Python (Django, FastAPI) con Docker, Git y "
+    "Pytest. Stack: Python, Django, FastAPI, TensorFlow, PostgreSQL, MongoDB, Docker, Git, Pytest, IBM DataStage, "
+    "Teradata, Matillion, Snowflake, Control-M.\n"
+    " - Network Administrator & Mobile Developer en CABLE NORTE S.A. (2019-2021): Automatización de procesos "
+    "manuales con Python, administración de servidores Linux y redes empresariales, y desarrollo de aplicaciones "
+    "móviles con enfoque mobile-first (React Native). Stack: Python, Linux, React Native.\n"
     "Nota: las métricas de impacto mencionadas en el sitio son ilustrativas del tipo de trabajo realizado, "
     "no cifras auditadas de las empresas.\n"
     "EDUCACIÓN: Analista de Sistemas / Licenciatura en Sistemas, UNAM - Facultad de Ciencias Exactas "
@@ -134,6 +147,53 @@ FEATURED_REPOS = [
         'updated_at': "2024-02-10T10:00:00Z"
     }
 ]
+
+
+# ------------------------------------------------------------------
+# --- FECHA DE "ÚLTIMA ACTUALIZACIÓN" DE LOS REPOS ---
+# ------------------------------------------------------------------
+from datetime import datetime
+from django.core.cache import cache
+import requests
+
+MESES_ES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
+
+
+def _format_fecha(iso_str):
+    """'2026-08-18' o '2026-08-18T10:00:00Z' -> '18 ago 2026'. Devuelve '' si no se puede parsear."""
+    if not iso_str:
+        return ""
+    try:
+        dt = datetime.strptime(iso_str[:10], "%Y-%m-%d")
+    except ValueError:
+        return ""
+    return f"{dt.day} {MESES_ES[dt.month - 1]} {dt.year}"
+
+
+def _fecha_desde_github(html_url):
+    """Consulta pushed_at del repo en la API de GitHub. Cachea 6 h y devuelve None si falla."""
+    path = html_url.split("github.com/")[-1].strip("/")
+    cache_key = f"gh_pushed_at:{path}"
+    cached = cache.get(cache_key)
+    if cached:
+        return cached
+    if cache.get("gh_api_down"):  # GitHub no responde: no frenar la página, usar fechas manuales
+        return None
+    try:
+        headers = {"Accept": "application/vnd.github+json"}
+        token = getattr(settings, "GITHUB_TOKEN", "")
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+        r = requests.get(f"https://api.github.com/repos/{path}", headers=headers, timeout=2)
+        if r.status_code == 200:
+            pushed = r.json().get("pushed_at")
+            if pushed:
+                cache.set(cache_key, pushed, 60 * 60 * 6)
+                return pushed
+    except requests.RequestException:
+        cache.set("gh_api_down", True, 60 * 10)
+    return None
+
 
 def contacto_view(request):
     return render(request, 'core/contacto.html', {})
@@ -321,6 +381,8 @@ def home_view(request):
     # Añadir una imagen representativa por defecto (OpenGraph de GitHub) cuando no haya imagen local
     for repo in data['featured_repos']:
         html_url = repo.get('html_url', '')
+        # Fecha real desde GitHub (con caché); si falla, se usa la fecha manual de FEATURED_REPOS
+        repo['updated_display'] = _format_fecha(_fecha_desde_github(html_url) or repo.get('updated_at'))
         try:
             path = html_url.split('github.com/')[-1].strip('/')
             if path:
