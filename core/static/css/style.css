@@ -930,3 +930,15 @@ footer {
 
     .case-study-header, .case-study-body { padding: 20px; }
 }
+.site-header .container.mobile-nav-container {
+    display: block;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+@media (min-width: 861px) {
+    .site-header .container.mobile-nav-container { display: none; }
+}

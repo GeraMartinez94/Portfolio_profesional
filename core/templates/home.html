@@ -19,6 +19,11 @@
         content="Portafolio de Gerardo Martínez - Data Engineer SSR & Cloud Developer. Especializado en Big Data, Airflow, Spark y arquitectura cloud.">
     <meta name="keywords" content="Data Engineer, Python, Django, Cloud, AWS, GCP, Spark, Airflow, Big Data">
     <title>Gerardo Martínez - Data Engineer SSR & Cloud Developer</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32.png' %}?v=2">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}?v=2">
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}?v=2">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -442,7 +447,7 @@
     <header class="site-header" id="site-header">
         <div class="container">
             <a href="#inicio" class="site-branding">
-                <span class="site-brand-mark">✦</span>
+                <span class="site-brand-mark"><i class="fas fa-laptop-code"></i></span>
                 <div>
                     <h1 class="site-title">Portafolio Profesional</h1>
                     <p class="site-tagline">Data Engineer SSR • Cloud Developer • Python</p>
@@ -464,7 +469,7 @@
             </button>
         </div>
 
-        <div class="container">
+       <div class="container mobile-nav-container">
             <nav class="mobile-nav" id="mobile-nav">
                 <a href="#inicio">Inicio</a>
                 <a href="#experiencia">Experiencia</a>
@@ -521,7 +526,7 @@
             </p>
 
             <div class="experience-timeline">
-                <!-- EXPERIENCIA 0: AVLA (actual) -->
+                <!-- EXPERIENCIA 1: AVLA (actual) -->
                 <div class="experience-item" data-aos="fade-up">
                     <div class="experience-dot"></div>
                     <div class="experience-content">
@@ -529,72 +534,71 @@
                         <div class="experience-company">AVLA</div>
                         <div class="experience-period">2025 - Presente</div>
                         <div class="experience-desc">
-                            <p>Diseño de la arquitectura de datos y desarrollo de pipelines ELT sobre GCP, con foco en
-                                consumo analítico.</p>
+                            <p>Diseño de la arquitectura de datos y desarrollo de pipelines ELT sobre GCP, con foco en datos listos para consumo seguro y eficiente.</p>
                             <ul>
-                                <li>Arquitectura Medallion (Bronze/Silver/Gold) para estructurar el repositorio de datos del equipo</li>
-                                <li>Pipelines ELT con Matillion sobre BigQuery</li>
+                                <li>Diseño de la arquitectura de datos con metodología Medallion (Bronze/Silver/Gold), estructurando el repositorio del equipo en capas orientadas al consumo</li>
+                                <li>Desarrollo de pipelines ELT con Matillion sobre BigQuery</li>
                                 <li>Diseño de esquemas y modelos de datos en MongoDB para casos de uso analíticos</li>
-                                <li>Integración de datos entre plataformas SaaS y AWS mediante AppFlow</li>
+                                <li>Integración de datos entre plataformas SaaS y AWS mediante AppFlow; GCP es la nube principal del equipo de datos</li>
                                 <li>Tech Stack: BigQuery • Matillion • MongoDB • AWS AppFlow • GCP</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- EXPERIENCIA 1: COREBI -->
+                <!-- EXPERIENCIA 2: COREBI -->
                 <div class="experience-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="experience-dot"></div>
                     <div class="experience-content">
-                        <div class="experience-title">Big Data Engineer</div>
+                        <div class="experience-title">Big Data Engineer (Semi-Senior)</div>
                         <div class="experience-company">COREBI</div>
                         <div class="experience-period">2024 - 2025</div>
                         <div class="experience-desc">
-                            <p>Diseño e implementación de pipelines ETL en entornos cloud utilizando Apache Airflow y
-                                Spark para procesamiento de datos a gran escala.</p>
+                            <p>Diseño e implementación de pipelines ETL en entornos cloud con Apache Airflow y Spark para procesamiento de datos a gran escala.</p>
                             <ul>
-                                <li>Diseño de pipelines de procesamiento de datos con Airflow y PySpark</li>
-                                <li>Optimización de flujos de procesamiento mediante paralelización con PySpark SQL</li>
+                                <li>Diseño e implementación de pipelines ETL cloud con Apache Airflow y Spark</li>
+                                <li>Optimización de flujos y rendimiento mediante paralelización con PySpark SQL</li>
                                 <li>Automatización de workflows recurrentes, reduciendo tareas manuales del equipo</li>
-                                <li>Tech Stack: Python • Airflow • PySpark • Snowflake • AWS (S3, EC2, RDS)</li>
+                                <li>Proyecto Naranja X (sector financiero): desarrollo y mantenimiento de procesos ETL con IBM DataStage sobre Teradata, validaciones de datos basadas en reglas de negocio y generación de reportes</li>
+                                <li>Tech Stack: Python • Airflow • PySpark • Snowflake • AWS (S3, EC2, RDS) • IBM DataStage • Teradata</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- EXPERIENCIA 2: AGNOSTIC IT -->
+                <!-- EXPERIENCIA 3: AGNOSTIC IT -->
                 <div class="experience-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="experience-dot"></div>
                     <div class="experience-content">
-                        <div class="experience-title">Developer Mobile & Data Engineer</div>
+                        <div class="experience-title">Mobile Developer &amp; Data Engineer</div>
                         <div class="experience-company">AGNOSTIC IT</div>
                         <div class="experience-period">2022 - 2024</div>
                         <div class="experience-desc">
-                            <p>Desarrollo de aplicaciones backend con Python e integración de soluciones de Machine
-                                Learning con monitoreo continuo.</p>
+                            <p>Desarrollo de procesos ETL/ELT y backend para aplicaciones móviles, con integración de modelos de Machine Learning en producción.</p>
                             <ul>
-                                <li>Backend para apps móviles en Python (Django, FastAPI)</li>
+                                <li>Diseño y desarrollo de procesos ETL con IBM DataStage sobre Teradata</li>
+                                <li>Desarrollo de pipelines ELT con Matillion sobre Snowflake, orquestados con Control-M</li>
+                                <li>Dashboards en tiempo real para monitoreo de KPIs, con datos en PostgreSQL y MongoDB; optimización de consultas complejas mediante particionado e índices en PostgreSQL</li>
                                 <li>Integración de modelos de Machine Learning en producción</li>
-                                <li>Dashboards en tiempo real para monitoreo de KPIs</li>
-                                <li>Tech Stack: Python • Django • FastAPI • TensorFlow • PostgreSQL • Docker</li>
+                                <li>Backend para apps móviles en Python (Django, FastAPI), con Docker, Git y testing automatizado con Pytest</li>
+                                <li>Tech Stack: Python • Django • FastAPI • TensorFlow • PostgreSQL • MongoDB • Docker • Git • Pytest • IBM DataStage • Teradata • Matillion • Snowflake • Control-M</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- EXPERIENCIA 3: CABLE NORTE -->
+                <!-- EXPERIENCIA 4: CABLE NORTE -->
                 <div class="experience-item" data-aos="fade-up" data-aos-delay="300">
                     <div class="experience-dot"></div>
                     <div class="experience-content">
-                        <div class="experience-title">Network Administrator & Mobile Developer</div>
+                        <div class="experience-title">Network Administrator &amp; Mobile Developer</div>
                         <div class="experience-company">CABLE NORTE S.A.</div>
                         <div class="experience-period">2019 - 2021</div>
                         <div class="experience-desc">
-                            <p>Administración de infraestructura de red y desarrollo de aplicaciones móviles para
-                                optimización de procesos internos.</p>
+                            <p>Administración de infraestructura de red y desarrollo de aplicaciones móviles para optimización de procesos internos.</p>
                             <ul>
                                 <li>Automatización de procesos manuales con Python</li>
-                                <li>Administración de servidores Linux y configuración de redes empresariales</li>
+                                <li>Administración de servidores Linux y redes empresariales</li>
                                 <li>Desarrollo de aplicaciones móviles con enfoque mobile-first (React Native)</li>
                                 <li>Tech Stack: Python • Linux • React Native</li>
                             </ul>
